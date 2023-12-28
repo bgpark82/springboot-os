@@ -1,0 +1,7 @@
+###
+GET https://search-movies-5jmf7lgf2emqczejio7xw4bgnu.aos.ap-northeast-2.on.aws/sample/_search
+Authorization: Basic musinsa Musinsa1!2@
+
+###
+DELETE https://search-movies-5jmf7lgf2emqczejio7xw4bgnu.aos.ap-northeast-2.on.aws/sample
+Authorization: Basic musinsa Musinsa1!2@
