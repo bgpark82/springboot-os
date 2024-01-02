@@ -1,7 +1,9 @@
+#opensearch:
+#  uris: https://search-movies-5jmf7lgf2emqczejio7xw4bgnu.aos.ap-northeast-2.on.aws
+#  username: musinsa
+#  password: Musinsa1!2@
 opensearch:
-  uris: https://search-movies-5jmf7lgf2emqczejio7xw4bgnu.aos.ap-northeast-2.on.aws
-  username: musinsa
-  password: Musinsa1!2@
+  uris: http://localhost:9200
 
 spring:
   jackson:
