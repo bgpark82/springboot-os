@@ -1,0 +1,9 @@
+### 인덱스 자동 생성 금지
+PUT http://localhost:9200/_cluster/settings
+Content-Type: application/json
+
+{
+  "persistent": {
+    "action.auto_create_index": "true"
+  }
+}

@@ -1,0 +1,2 @@
+### 매핑 확인
+GET http://localhost:9200/companies/_mapping

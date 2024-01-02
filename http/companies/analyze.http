@@ -1,0 +1,8 @@
+###
+POST http://localhost:9200/_analyze
+Content-Type: application/json
+
+{
+  "analyzer": "standard",
+  "text": "우리나라가 좋은나라, 대한민국 화이팅"
+}

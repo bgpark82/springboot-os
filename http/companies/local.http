@@ -1,0 +1,17 @@
+### 인덱스를 조회한다
+GET http://localhost:9200/test
+
+### 인덱스를 삭제한다
+DELETE http://localhost:9200/test
+
+### 문서를 조회한다
+GET http://localhost:9200/test/_doc/1
+
+### 문서를 생성한다
+PUT http://localhost:9200/test/_doc/1
+Content-Type: application/json
+
+{
+  "name": "test"
+}
+

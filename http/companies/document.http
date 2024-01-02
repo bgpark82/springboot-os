@@ -1,0 +1,56 @@
+### 문서를 색인한다
+POST http://localhost:9200/companies/_doc/1
+Content-Type: application/json
+
+{
+  "dateAdded": "2023-10-23T17:30:04.04",
+  "industry": "Wholesale & Retail",
+  "mainTier": "Worker (A rating)",
+  "organisationName": " McMullan Shellfish",
+  "socialWebsite": "https://uk.linkedin.com/in/luke-mcmullan",
+  "subTier": "Skilled Worker",
+  "town": "Ballymena",
+  "website": "https://images.search.yahoo.com/search/i"
+}
+
+### 문서를 색인한다 (자동 아이디 생성)
+POST http://localhost:9200/companies/_doc
+Content-Type: application/json
+
+{
+  "dateAdded": "2023-10-23T17:30:04.04",
+  "industry": "Wholesale & Retail",
+  "mainTier": "Worker (A rating)",
+  "organisationName": " McMullan Shellfish",
+  "socialWebsite": "https://uk.linkedin.com/in/luke-mcmullan",
+  "subTier": "Skilled Worker",
+  "town": "Ballymena",
+  "website": "https://images.search.yahoo.com/search/i"
+}
+
+### 문서를 조회한다 (단일 문서)
+GET http://localhost:9200/companies/_doc/1
+
+### 문서를 검색한다 (단일 문서)
+GET http://localhost:9200/companies/_search
+Content-Type: application/json
+
+{
+  "size": 100,
+  "query": {
+    "bool": {
+      "must": {
+        "match": {
+          "name": "McMullan"
+        }
+      },
+      "filter": [
+        {
+          "match": {
+            "townCity": "Glasgow"
+          }
+        }
+      ]
+    }
+  }
+}
