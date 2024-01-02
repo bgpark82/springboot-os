@@ -1,0 +1,33 @@
+### 인덱스를 생성한다 (템플릿 존재)
+PUT http://localhost:9200/daily-20240102
+Content-Type: application/json
+
+{
+  "aliases": {
+    "current_daily":{
+    }
+  }
+}
+
+### 문서를 추가한다
+POST http://localhost:9200/daily-20240102/_doc/1
+Content-Type: application/json
+
+{
+  "name": "woo",
+  "@timestamp": "2024-01-02T12:34:56"
+}
+
+### 별칭을 조회한다
+GET http://localhost:9200/current_daily/_search
+
+### 문서를 조회한다
+GET http://localhost:9200/daily-20240101/_search
+
+### 인덱스를 조회한다
+GET http://localhost:9200/daily-20240102
+
+### 인덱스를 삭제한다
+DELETE http://localhost:9200/daily-*
+
+

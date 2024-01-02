@@ -1,0 +1,88 @@
+### 인덱스 라이프사이클 정책 생성
+PUT http://localhost:9200/_ilm/policy/temp_policy
+Content-Type: application/json
+
+{
+  "policy": {
+    "phases": {
+      "hot": {
+        "actions": {
+          "rollover": {
+            "max_age": "10s"
+          }
+        }
+      },
+      "delete": {
+        "min_age": "7d",
+        "actions": {
+          "delete": {}
+        }
+      }
+    }
+  }
+}
+
+### 인덱스 템플릿 생성
+PUT http://localhost:9200/_index_template/temp_index_template
+Content-Type: application/json
+
+{
+  "index_patterns": ["temp-*"],
+  "template": {
+    "settings": {
+      "index": {
+        "number_of_shards": 3,
+        "number_of_replicas": 2,
+        "lifecycle.name": "temp_policy",
+        "lifecycle.rollover_alias": "current_temp"
+      },
+      "refresh_interval": "5s"
+    }
+    "mappings": {
+      "properties": {
+        "name": {
+          "type": "keyword"
+        },
+        "@timestamp": {
+          "type": "date"
+        }
+      }
+    }
+  }
+}
+
+### 인덱스를 생성한다 (템플릿 존재)
+PUT http://localhost:9200/temp-000003
+Content-Type: application/json
+
+{
+  "aliases": {
+    "current_temp":{
+      "is_write_index": true
+    }
+  }
+}
+
+### 문서를 추가한다
+POST http://localhost:9200/temp-000002/_doc/1
+Content-Type: application/json
+
+{
+  "name": "peter",
+  "@timestamp": "2024-01-02T12:34:56"
+}
+
+### 별칭을 조회한다
+GET http://localhost:9200/current_temp/_search
+
+### 문서를 조회한다
+GET http://localhost:9200/temp-000001
+
+### 문서를 조회한다
+GET http://localhost:9200/temp-000002
+
+###
+GET http://localhost:9200/current_temp/_ilm/explain
+
+###
+GET http://localhost:9200/temp-000002/_ilm/explain

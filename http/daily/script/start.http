@@ -1,0 +1,65 @@
+### 인덱스 라이프사이클 정책 생성
+PUT http://localhost:9200/_ilm/policy/daily_policy
+Content-Type: application/json
+
+{
+  "policy": {
+    "phases": {
+      "delete": {
+        "min_age": "7d",
+        "actions": {
+          "delete": {}
+        }
+      }
+    }
+  }
+}
+
+### 인덱스 템플릿 생성
+PUT http://localhost:9200/_index_template/daily_index_template
+Content-Type: application/json
+
+{
+  "index_patterns": ["daily-*"],
+  "template": {
+    "settings": {
+      "number_of_shards": 3,
+      "number_of_replicas": 2,
+      "index": {
+        "lifecycle.name": "daily_policy",
+        "lifecycle.rollover_alias": "current_daily"
+      },
+      "refresh_interval": "30s"
+    },
+    "mappings": {
+      "properties": {
+        "name": {
+          "type": "keyword"
+        },
+        "@timestamp": {
+          "type": "date"
+        }
+      }
+    }
+  }
+}
+
+### 인덱스를 생성한다 (템플릿 존재)
+PUT http://localhost:9200/daily-20240101
+Content-Type: application/json
+
+{
+  "aliases": {
+    "current_daily":{
+    }
+  }
+}
+
+### 문서를 추가한다
+POST http://localhost:9200/daily-20240101/_doc/1
+Content-Type: application/json
+
+{
+  "name": "peter",
+  "@timestamp": "2024-01-02T12:34:56"
+}

@@ -1,0 +1,10 @@
+### 인덱스 템플릿 제거
+DELETE http://localhost:9200/_index_template/daily_index_template
+
+### 인덱스 제거
+DELETE http://localhost:9200/daily-*
+
+### 인덱스 라이프사이클 정책 제거
+DELETE http://localhost:9200/_ilm/policy/daily_policy
+
+

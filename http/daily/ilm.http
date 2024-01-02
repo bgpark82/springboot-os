@@ -1,0 +1,43 @@
+### 인덱스 라이프사이클 정책 생성
+PUT http://localhost:9200/_ilm/policy/daily_policy
+Content-Type: application/json
+
+{
+  "policy": {
+    "phases": {
+      "hot": {
+        "actions": {
+          "rollover": {
+            "max_age": "5s"
+          }
+        }
+      },
+      "delete": {
+        "min_age": "7d",
+        "actions": {
+          "delete": {}
+        }
+      }
+    }
+  }
+}
+
+### 인덱스 라이프사이클 정책 조회
+GET http://localhost:9200/_ilm/policy/daily_policy
+
+### 인덱스 라이프사이클 정책 제거
+DELETE http://localhost:9200/_ilm/policy/daily_policy
+
+### 인덱스 라이프사이클 정책 poll interval
+### ilm 실행 간격, 5초마다 정책을 확인하여 rollover, delete 수행
+PUT http://localhost:9200/_cluster/settings
+Content-Type: application/json
+
+{
+  "transient": {
+    "indices.lifecycle.poll_interval": "5s"
+  }
+}
+
+### 별칭의 인덱스 라이프 사이클 정책 현황
+GET http://localhost:9200/current_daily/_ilm/explain

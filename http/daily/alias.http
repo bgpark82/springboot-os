@@ -1,0 +1,23 @@
+### 별칭 생성
+POST http://localhost:9200/_aliases
+Content-Type: application/json
+
+{
+  "actions": [
+    {
+      "add": {
+        "index": "daily-20240102",
+        "alias": "current_daily"
+      }
+    },
+    {
+      "remove": {
+        "index": "daily-20240101",
+        "alias": "current_daily"
+      }
+    }
+  ]
+}
+
+### 별칭 조회
+GET http://localhost:9200/_aliases

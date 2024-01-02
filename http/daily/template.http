@@ -1,0 +1,39 @@
+### 인덱스 템플릿 생성
+PUT http://localhost:9200/_index_template/daily_index_template
+Content-Type: application/json
+
+{
+  "index_patterns": ["daily-*"],
+  "template": {
+    "settings": {
+      "index": {
+        "number_of_shards": 3,
+        "number_of_replicas": 2,
+        "lifecycle.name": "daily_policy",
+        "lifecycle.rollover_alias": "current_daily"
+      },
+      "refresh_interval": "5s"
+    },
+    "aliases": {
+      "current_index": {
+        "is_write_index": true
+      }
+    },
+    "mappings": {
+      "properties": {
+        "name": {
+          "type": "keyword"
+        },
+        "@timestamp": {
+          "type": "date"
+        }
+      }
+    }
+  }
+}
+
+### 템플릿을 조회한다
+GET http://localhost:9200/_index_template/daily_index_template
+
+### 템플릿을 삭제한다
+DELETE http://localhost:9200/_index_template/daily_index_template
