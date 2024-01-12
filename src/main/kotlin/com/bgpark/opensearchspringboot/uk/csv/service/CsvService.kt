@@ -1,7 +1,8 @@
-package com.bgpark.opensearchspringboot.companies
+package com.bgpark.opensearchspringboot.uk.csv.service
 
-import com.bgpark.opensearchspringboot.companies.es.Company
-import com.bgpark.opensearchspringboot.companies.es.CompanyRepository
+import com.bgpark.opensearchspringboot.uk.company.domain.Company
+import com.bgpark.opensearchspringboot.uk.company.domain.CompanyRepository
+import com.bgpark.opensearchspringboot.uk.csv.dto.CsvCompanyDto
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.util.ResourceUtils
@@ -10,12 +11,11 @@ import java.io.FileReader
 import java.io.IOException
 
 @Service
-class CompanyService(
+class CsvService(
     val companyRepository: CompanyRepository
 ) {
-
     @Transactional
-    fun save(companies: List<CompanyDto>) {
+    fun save(companies: List<CsvCompanyDto>) {
         val companyList = companies.map { company ->
             Company(
                 id = null,
@@ -29,8 +29,8 @@ class CompanyService(
         companyRepository.saveAll(companyList)
     }
 
-    fun readOrganisationsFromCsv(): List<CompanyDto> {
-        val companies = mutableListOf<CompanyDto>()
+    fun readOrganisationsFromCsv(): List<CsvCompanyDto> {
+        val companies = mutableListOf<CsvCompanyDto>()
 
         try {
             // CSV 파일 경로 설정
@@ -45,14 +45,14 @@ class CompanyService(
                 // 각 라인을 읽어와서 객체로 변환 후 리스트에 추가
                 while (reader.readLine().also { line = it } != null) {
                     val tokens = line!!.split(",")
-                    val companyDto = CompanyDto(
+                    val csvCompanyDto = CsvCompanyDto(
                         tokens[0].trim('"'),
                         tokens[1].trim('"'),
                         tokens[2].trim('"'),
                         tokens[3].trim('"'),
                         tokens[4].trim('"')
                     )
-                    companies.add(companyDto)
+                    companies.add(csvCompanyDto)
                 }
             }
         } catch (e: IOException) {

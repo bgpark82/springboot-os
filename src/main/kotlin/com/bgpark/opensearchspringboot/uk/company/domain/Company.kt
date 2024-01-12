@@ -1,4 +1,4 @@
-package com.bgpark.opensearchspringboot.companies.es
+package com.bgpark.opensearchspringboot.uk.company.domain
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.elasticsearch.annotations.Document
