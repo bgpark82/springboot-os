@@ -1,4 +1,4 @@
-package com.bgpark.opensearchspringboot.uk
+package com.bgpark.opensearchspringboot.uk.csv
 
 import com.bgpark.opensearchspringboot.uk.csv.service.CsvService
 import com.bgpark.opensearchspringboot.uk.company.domain.CompanyRepository
@@ -9,16 +9,12 @@ import org.mockito.Mock
 import org.mockito.junit.jupiter.MockitoExtension
 
 @ExtendWith(MockitoExtension::class)
-class CsvCompanyDtoServiceTest(
-    @Mock val companyRepository: CompanyRepository
-) {
+class CsvCompanyVOServiceTest {
 
     @Test
     fun `csv를 읽는다`() {
-        val csvService = CsvService(companyRepository)
-
+        val csvService = CsvService()
         val companies = csvService.readCompaniesFromCsv()
-
         assertThat(companies.size).isGreaterThan(1)
     }
 }
