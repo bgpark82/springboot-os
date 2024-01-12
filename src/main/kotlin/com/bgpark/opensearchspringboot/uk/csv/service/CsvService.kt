@@ -30,7 +30,7 @@ class CsvService(
         companyRepository.saveAll(companyList)
     }
 
-    fun readOrganisationsFromCsv(): List<CsvCompanyDto> {
+    fun readCompaniesFromCsv(): List<CsvCompanyDto> {
         val companies = mutableListOf<CsvCompanyDto>()
 
         try {

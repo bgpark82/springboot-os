@@ -12,7 +12,7 @@ class CsvServiceTest(
 
     @Test
     fun `csv를 es에 저장한다`() {
-        val companies = csvService.readOrganisationsFromCsv()
+        val companies = csvService.readCompaniesFromCsv()
         csvService.save(companies)
     }
 }

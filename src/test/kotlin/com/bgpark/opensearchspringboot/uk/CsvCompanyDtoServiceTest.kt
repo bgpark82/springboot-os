@@ -17,7 +17,7 @@ class CsvCompanyDtoServiceTest(
     fun `csv를 읽는다`() {
         val csvService = CsvService(companyRepository)
 
-        val companies = csvService.readOrganisationsFromCsv()
+        val companies = csvService.readCompaniesFromCsv()
 
         assertThat(companies.size).isGreaterThan(1)
     }
