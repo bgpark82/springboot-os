@@ -1,5 +1,6 @@
 package com.bgpark.opensearchspringboot.uk.csv.service
 
+import com.bgpark.opensearchspringboot.uk.common.CsvConstant.Companion.COMPANY_CSV_FILE_PATH
 import com.bgpark.opensearchspringboot.uk.company.domain.Company
 import com.bgpark.opensearchspringboot.uk.company.domain.CompanyRepository
 import com.bgpark.opensearchspringboot.uk.csv.dto.CsvCompanyDto
@@ -34,7 +35,7 @@ class CsvService(
 
         try {
             // CSV 파일 경로 설정
-            val file = ResourceUtils.getFile("classpath:companies/companies.csv")
+            val file = ResourceUtils.getFile(COMPANY_CSV_FILE_PATH)
 
             // 파일 리더 생성
             BufferedReader(FileReader(file)).use { reader ->
