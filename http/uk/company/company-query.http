@@ -1,0 +1,80 @@
+###
+GET http://localhost:9200/companies/_search
+Content-Type: application/json
+
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "match": {
+            "name": "Shellfish"
+          }
+        },
+        {
+          "match": {
+            "townCity": "Manchester"
+          }
+        },
+        {
+          "match": {
+            "county": "ORKNEY"
+          }
+        }
+
+      ],
+      "filter": [
+        {
+          "term": {
+            "typeRating.keyword": "Worker (A rating)"
+          }
+        },
+        {
+          "term": {
+            "route.keyword": "Skilled Worker"
+          }
+        }
+      ]
+    }
+  }
+}
+
+###
+GET http://localhost:9200/companies/_search
+Content-Type: application/json
+
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "match": {
+            "name": "Shellfish"
+          }
+        },
+        {
+          "match": {
+            "townCity": "Manchester"
+          }
+        },
+        {
+          "match": {
+            "county": "ORKNEY"
+          }
+        }
+      ],
+      "filter": [
+        {
+          "term": {
+            "typeRating.keyword": "Worker (A rating)"
+          }
+        },
+        {
+          "term": {
+            "route.keyword": "Skilled Worker"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,81 @@
+### county
+GET localhost:9200/companies/_search
+Content-Type: application/json
+
+{
+  "_source": "county",
+  "aggs": {
+    "county": {
+      "terms": {
+        "field": "county.keyword",
+        "size": 100
+      }
+    }
+  }
+}
+
+### name
+GET localhost:9200/companies/_search
+Content-Type: application/json
+
+{
+  "_source": "name",
+  "aggs": {
+    "nameAgg": {
+      "terms": {
+        "field": "name.keyword",
+        "size": 100
+      }
+    }
+  }
+}
+
+### townCity
+GET localhost:9200/companies/_search
+Content-Type: application/json
+
+{
+  "_source": "townCity",
+  "aggs": {
+    "townCity": {
+      "terms": {
+        "field": "townCity.keyword",
+        "size": 100
+      }
+    }
+  }
+}
+
+
+### typeRating
+GET localhost:9200/companies/_search
+Content-Type: application/json
+
+{
+  "_source": "typeRating",
+  "aggs": {
+    "typeRating": {
+      "terms": {
+        "field": "typeRating.keyword",
+        "size": 100
+      }
+    }
+  }
+}
+
+### route
+GET localhost:9200/companies/_search
+Content-Type: application/json
+
+{
+  "_source": "route",
+  "aggs": {
+    "route": {
+      "terms": {
+        "field": "route.keyword",
+        "size": 100
+      }
+    }
+  }
+}
+

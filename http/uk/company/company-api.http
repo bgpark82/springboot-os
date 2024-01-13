@@ -1,0 +1,12 @@
+### csv에서 elasticsearch로 bulk insert한다
+POST http://localhost:8080/uk/api/v1/companies
+
+### 회사를 검색한다
+GET http://localhost:8080/uk/api/v1/companies?
+    name=Shellfish&
+    townCity=Manchester&
+    county=ORKNEY&
+    typeRating=Worker (A rating)&
+    route=Skilled Worker&
+    page=0&
+    size=100

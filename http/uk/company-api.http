@@ -1,2 +1,0 @@
-### csv에서 elasticsearch로 bulk insert한다
-POST http://localhost:8080/uk/api/v1/companies
