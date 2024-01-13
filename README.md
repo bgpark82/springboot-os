@@ -13,7 +13,18 @@ docker-compose -f docker/docker-compose.yml -d up
 
 csv 파일의 회사 목록을 읽어 elasticsearch에 저장한다
 ```http request
-POST /uk/api/v1/companies
+POST http://localhost:8080/uk/api/v1/companies
 ```
 
 3. 영국 회사 검색
+```http request
+GET http://localhost:8080/uk/api/v1/companies?
+    name=Shellfish&
+    townCity=Manchester&
+    county=ORKNEY&
+    typeRating=Worker (A rating)&
+    route=Skilled Worker
+```
+
+## Reference
+https://uktiersponsors.co.uk/
