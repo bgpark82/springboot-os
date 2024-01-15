@@ -21,8 +21,9 @@ repositories {
 dependencies {
 
     // Java Client
-     implementation("org.opensearch.client:opensearch-java:2.6.0")
-     implementation("org.opensearch.client:opensearch-rest-client:2.11.1")
+    implementation("org.opensearch.client:opensearch-java:2.6.0")
+    implementation("org.opensearch.client:opensearch-rest-client:2.11.1")
+    implementation("org.apache.httpcomponents.client5:httpclient5")  // HttpClient5Transporter를 구성하기 위해 사용
 
     // Spring Data OpenSearch
     implementation("org.opensearch.client:spring-data-opensearch:1.2.0")
