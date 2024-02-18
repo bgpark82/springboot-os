@@ -1,13 +1,15 @@
 package com.bgpark.opensearchspringboot.java_client
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.node.ObjectNode
 import org.apache.hc.core5.http.HttpHost
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
 import org.opensearch.client.opensearch.OpenSearchClient
 import org.opensearch.client.opensearch._types.Result
+import org.opensearch.client.opensearch._types.SortOrder
 import org.opensearch.client.opensearch.core.DeleteRequest
 import org.opensearch.client.opensearch.core.IndexRequest
 import org.opensearch.client.opensearch.core.SearchRequest
@@ -26,7 +28,7 @@ class JavaClientServiceTest {
 
     @BeforeEach
     fun setUp() {
-        val host = HttpHost("http", "localhost", 9200   )
+        val host = HttpHost("http", "localhost", 9200)
         val hosts = arrayOf(host)
 
         val transport = ApacheHttpClient5TransportBuilder
@@ -117,6 +119,39 @@ class JavaClientServiceTest {
             assertThat(sample.source()?.firstName).isEqualTo("peter")
         }
 
+    }
+
+    @Test
+    fun `도큐먼트를 조회한다 - map`() {
+        val searchRequest = SearchRequest.Builder()
+            .index(index)
+            .from(0)
+            .size(10)
+            .query{ q -> q.bool {
+                bool -> bool.filter {
+                    filter -> filter.term {
+                        term -> term.field("firstName").value {
+                            value -> value.stringValue("peter")
+                        }
+                    }
+                }
+            }}
+            .source { s -> s.filter {
+                filter -> filter.includes(listOf("firstName", "lastName"))
+            }}
+            .sort { s -> s.field {
+                field -> field.order(SortOrder.Asc)
+            }}
+            .build()
+
+        val response = openSearchClient.search(
+            searchRequest,
+            ObjectNode::class.java)
+
+        val hits = response.hits().hits()
+        for (hit in hits) {
+            val objectNode = hit.source()
+            val map = ObjectMapper().convertValue(objectNode, Map::class.java) as Map<String, Any> }
     }
 
     @Test

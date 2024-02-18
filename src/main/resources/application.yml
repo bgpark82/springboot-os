@@ -9,3 +9,9 @@ spring:
   jackson:
     serialization:
       INDENT_OUTPUT: true
+
+
+logging:
+  level:
+    org.elasticsearch.client: TRACE
+    org.apache.http: TRACE
